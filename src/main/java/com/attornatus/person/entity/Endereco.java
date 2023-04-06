@@ -18,7 +18,7 @@ public class Endereco {
     private long id;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "pessoa_id")
+    @JoinColumn(name = "pessoaId", referencedColumnName="id", nullable=false)
     private Pessoa pessoa;
 
     @Column(nullable = false)

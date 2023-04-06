@@ -43,7 +43,7 @@ public class PessoaController {
 
     @PutMapping
     public ResponseEntity<PessoaDTO> atualizarPessoa(@RequestBody Pessoa pessoa){
-        PessoaDTO pessoaRetornada = pessoaService.atualizarPessoa(pessoa);
-        return ResponseEntity.ok(pessoaRetornada);
+        PessoaDTO pessoaSalva = pessoaService.atualizarPessoa(pessoa);
+        return ResponseEntity.ok(pessoaSalva);
     }
 }
