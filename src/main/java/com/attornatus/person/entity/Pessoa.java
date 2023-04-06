@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Calendar;
-import java.util.List;
 
 @Entity
 @Table
@@ -26,7 +25,4 @@ public class Pessoa {
 
     @Column(nullable = false)
     private Calendar dataNascimento;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<Endereco> endereco;
 }

@@ -1,12 +1,25 @@
 package com.attornatus.person.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Table
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "pessoa_id")
+    private Pessoa pessoa;
 
     @Column(nullable = false)
     private String cep;
@@ -20,6 +33,6 @@ public class Endereco {
     @Column(nullable = false)
     private String cidade;
 
-    @Column(nullable = true)
+    @Column
     private boolean ehPrincipal;
 }

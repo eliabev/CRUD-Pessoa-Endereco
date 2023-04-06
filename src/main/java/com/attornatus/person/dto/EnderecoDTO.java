@@ -5,15 +5,16 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Calendar;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class PessoaDTO {
+public class EnderecoDTO {
 
     private long id;
-    private String nome;
-    private Calendar dataNascimento;
+    private String cep;
+    private String logradouro;
+    private String numero;
+    private String cidade;
+    private boolean ehPrincipal;
 }
