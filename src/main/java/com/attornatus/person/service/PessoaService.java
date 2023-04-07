@@ -3,12 +3,14 @@ package com.attornatus.person.service;
 import com.attornatus.person.dto.PessoaDTO;
 import com.attornatus.person.entity.Pessoa;
 import com.attornatus.person.exceptions.EntidadeNaoEncontradaException;
+import com.attornatus.person.exceptions.PessoaInvalidaException;
 import com.attornatus.person.repository.PessoaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,9 +26,9 @@ public class PessoaService {
         if(pessoa.getNome().isBlank() || pessoa.getDataNascimento() == null) {
             throw new IllegalArgumentException("Por favor, informe os parâmetros: Nome e Data de Nascimento");
         }
-        pessoaRepository.save(pessoa);
-        PessoaDTO pessoaSalva = buscarPorId(pessoa.getId());
-        return pessoaSalva;
+
+        Pessoa pessoaSalva = pessoaRepository.save(pessoa);;
+        return modelMapper.map(pessoaSalva, PessoaDTO.class);
     }
 
     public PessoaDTO atualizarPessoa(Pessoa pessoaAtualizada) {
@@ -57,5 +59,13 @@ public class PessoaService {
     public void removerPorId(long id){
         buscarPorId(id);
         pessoaRepository.deleteById(id);
+    }
+
+    public void validarPayload(Pessoa pessoa) {
+        if (!Objects.nonNull(pessoa)
+                || pessoa.getNome().isBlank()
+                || Objects.nonNull(pessoa.getDataNascimento())) {
+            throw new PessoaInvalidaException("Nome e Data de nascimento precisam ser informados!");
+        }
     }
 }
