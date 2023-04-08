@@ -1,6 +1,7 @@
 package com.attornatus.person.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,7 @@ public class Pessoa {
     @Column(nullable = false)
     private Calendar dataNascimento;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Endereco> enderecos;
 }

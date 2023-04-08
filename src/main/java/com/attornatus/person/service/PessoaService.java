@@ -64,7 +64,7 @@ public class PessoaService {
     public void validarPayload(Pessoa pessoa) {
         if (!Objects.nonNull(pessoa)
                 || pessoa.getNome().isBlank()
-                || Objects.nonNull(pessoa.getDataNascimento())) {
+                || !Objects.nonNull(pessoa.getDataNascimento())) {
             throw new PessoaInvalidaException("Nome e Data de nascimento precisam ser informados!");
         }
     }

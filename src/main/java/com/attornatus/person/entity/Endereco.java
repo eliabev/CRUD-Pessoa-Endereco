@@ -1,5 +1,6 @@
 package com.attornatus.person.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,7 +18,8 @@ public class Endereco {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "pessoa_id", referencedColumnName="id", nullable=false)
     private Pessoa pessoa;
 

@@ -2,7 +2,6 @@ package com.attornatus.person.controller;
 
 import com.attornatus.person.dto.EnderecoDTO;
 import com.attornatus.person.entity.Endereco;
-import com.attornatus.person.repository.EnderecoRepository;
 import com.attornatus.person.service.EnderecoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +17,7 @@ public class EnderecoController {
     @Autowired
     private EnderecoService enderecoService;
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<EnderecoDTO> salvarEndereco(@RequestBody Endereco endereco) {
         EnderecoDTO enderecoSalvo = enderecoService.salvarEndereco(endereco);
         return new ResponseEntity<EnderecoDTO>(enderecoSalvo, HttpStatus.CREATED);
@@ -29,5 +28,19 @@ public class EnderecoController {
         List<EnderecoDTO> enderecosEncontrados = enderecoService.listarEnderecoPessoa(id);
 
         return ResponseEntity.ok(enderecosEncontrados);
+    }
+
+    @GetMapping("principal/{idPessoa}")
+    public ResponseEntity<EnderecoDTO> encontrarEnderecoPrincipal(@PathVariable long idPessoa) {
+        EnderecoDTO enderecoPrincipal = enderecoService.encontrarEnderecoPrincipal(idPessoa);
+
+        return ResponseEntity.ok(enderecoPrincipal);
+    }
+
+    @PutMapping("principal/{idPessoa}/{idEndereco}")
+    public ResponseEntity<EnderecoDTO> alterarEnderecoPrincipal(@PathVariable long idPessoa, @PathVariable long idEndereco) {
+        EnderecoDTO enderecoPrincipal = enderecoService.alterarEnderecoPrincipal(idPessoa, idEndereco);
+
+        return ResponseEntity.ok(enderecoPrincipal);
     }
 }
