@@ -32,7 +32,7 @@ public class EnderecoService {
         List<Endereco> enderecos = enderecoRepository.findByPessoaId(pessoaId);
 
         if(enderecos.isEmpty()){
-            throw new EntidadeNaoEncontradaException("Não existe nenhum endereço para esse id.");
+            throw new EntidadeNaoEncontradaException("Não existe nenhum endereco para essa pessoa :(");
         }
 
         return enderecos.stream()

@@ -23,9 +23,7 @@ public class PessoaService {
     private ModelMapper modelMapper;
 
     public PessoaDTO salvar(Pessoa pessoa){
-        if(pessoa.getNome().isBlank() || pessoa.getDataNascimento() == null) {
-            throw new IllegalArgumentException("Por favor, informe os parâmetros: Nome e Data de Nascimento");
-        }
+        validarPayload(pessoa);
 
         Pessoa pessoaSalva = pessoaRepository.save(pessoa);;
         return modelMapper.map(pessoaSalva, PessoaDTO.class);
@@ -33,7 +31,7 @@ public class PessoaService {
 
     public PessoaDTO atualizarPessoa(Pessoa pessoaAtualizada) {
         if (pessoaAtualizada != null && Long.valueOf(pessoaAtualizada.getId()) == null) {
-            throw new IllegalArgumentException("O ID deve ser informado");
+            throw new PessoaInvalidaException("O ID deve ser informado");
         }
 
         PessoaDTO pessoaAtual = buscarPorId(pessoaAtualizada.getId());
