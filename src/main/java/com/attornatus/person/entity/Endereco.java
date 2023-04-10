@@ -17,7 +17,7 @@ import javax.persistence.*;
 public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @JsonBackReference
     @ManyToOne(cascade = CascadeType.MERGE)

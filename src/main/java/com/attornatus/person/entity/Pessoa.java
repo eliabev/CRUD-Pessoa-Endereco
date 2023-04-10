@@ -3,24 +3,22 @@ package com.attornatus.person.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import lombok.*;
 
 import java.util.Calendar;
 import java.util.List;
 
 @Entity
 @Table
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Data
 public class Pessoa {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
 
     @Column(nullable = false)
     private String nome;

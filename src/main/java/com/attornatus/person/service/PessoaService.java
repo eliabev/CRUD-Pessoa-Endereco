@@ -8,6 +8,7 @@ import com.attornatus.person.repository.PessoaRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Objects;
@@ -30,7 +31,7 @@ public class PessoaService {
     }
 
     public PessoaDTO atualizarPessoa(Pessoa pessoaAtualizada) {
-        if (pessoaAtualizada != null && Long.valueOf(pessoaAtualizada.getId()) == null) {
+        if (pessoaAtualizada != null && pessoaAtualizada.getId() == null) {
             throw new PessoaInvalidaException("O ID deve ser informado");
         }
 
@@ -48,20 +49,20 @@ public class PessoaService {
                 .collect(Collectors.toList());
     }
 
-    public PessoaDTO buscarPorId(long id){
+    public PessoaDTO buscarPorId(Long id){
         return pessoaRepository.findById(id)
                 .map((pessoa) -> modelMapper.map(pessoa, PessoaDTO.class))
                 .orElseThrow(() -> new EntidadeNaoEncontradaException("Não foi encontrada a pessoa com esse ID :("));
     }
 
-    public void removerPorId(long id){
+    public void removerPorId(Long id){
         buscarPorId(id);
         pessoaRepository.deleteById(id);
     }
 
     public void validarPayload(Pessoa pessoa) {
         if (!Objects.nonNull(pessoa)
-                || pessoa.getNome().isBlank()
+                || !StringUtils.hasText(pessoa.getNome())
                 || !Objects.nonNull(pessoa.getDataNascimento())) {
             throw new PessoaInvalidaException("Nome e Data de nascimento precisam ser informados!");
         }

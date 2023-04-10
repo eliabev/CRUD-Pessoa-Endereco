@@ -8,11 +8,9 @@ import com.attornatus.person.exceptions.EntidadeNaoEncontradaException;
 import com.attornatus.person.repository.EnderecoRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -28,7 +26,7 @@ public class EnderecoService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<EnderecoDTO> listarEnderecoPessoa(long pessoaId) {
+    public List<EnderecoDTO> listarEnderecoPessoa(Long pessoaId) {
         List<Endereco> enderecos = enderecoRepository.findByPessoaId(pessoaId);
 
         if(enderecos.isEmpty()){
@@ -41,9 +39,9 @@ public class EnderecoService {
     }
     public void validarPayload(Endereco endereco) {
         if(!Objects.nonNull(endereco)
-                || endereco.getCep().isBlank()
-                || endereco.getCidade().isBlank()
-                || endereco.getLogradouro().isBlank()
+                || !StringUtils.hasText(endereco.getCep())
+                || !StringUtils.hasText(endereco.getCidade())
+                || !StringUtils.hasText(endereco.getLogradouro())
                 || !Objects.nonNull(endereco.getPessoa())){
             throw new EnderecoInvalidoException("Os atributos CEP, cidade, logradouro e \"Pessoa\" devem ser informados!");
         }
@@ -58,7 +56,7 @@ public class EnderecoService {
         return modelMapper.map(enderecoSalvo, EnderecoDTO.class);
     }
 
-    public Endereco definirEnderecoPrincipal(List<Endereco> enderecos, long idEnderecoPrincipal) {
+    public Endereco definirEnderecoPrincipal(List<Endereco> enderecos, Long idEnderecoPrincipal) {
         var ref = new Object() {
             Endereco enderecoPrincipal;
         };
@@ -80,7 +78,7 @@ public class EnderecoService {
         return ref.enderecoPrincipal;
     }
 
-    public EnderecoDTO alterarEnderecoPrincipal(long idPessoa, long idEndereco) {
+    public EnderecoDTO alterarEnderecoPrincipal(Long idPessoa, Long idEndereco) {
         List<Endereco> enderecosPessoa = enderecoRepository.findByPessoaId(idPessoa);
         Endereco enderecoPrincipal = definirEnderecoPrincipal(enderecosPessoa, idEndereco);
 
@@ -88,7 +86,7 @@ public class EnderecoService {
         return modelMapper.map(enderecoPrincipal, EnderecoDTO.class);
     }
 
-    public EnderecoDTO encontrarEnderecoPrincipal(long idPessoa) {
+    public EnderecoDTO encontrarEnderecoPrincipal(Long idPessoa) {
         Endereco enderecoPrincipal = enderecoRepository.findEndrecoFavorito(idPessoa);
 
         if(!Objects.nonNull(enderecoPrincipal)) {
@@ -97,5 +95,4 @@ public class EnderecoService {
 
         return modelMapper.map(enderecoPrincipal, EnderecoDTO.class);
     }
-
 }
