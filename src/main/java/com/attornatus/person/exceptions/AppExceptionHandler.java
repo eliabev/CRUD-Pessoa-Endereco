@@ -47,10 +47,10 @@ public class AppExceptionHandler extends ResponseEntityExceptionHandler {
                 new Date(),
                 e.getMessage(),
                 request.getDescription(false),
-                HttpStatus.NOT_FOUND.value()
+                HttpStatus.NO_CONTENT.value()
         );
 
-        return new ResponseEntity<>(mensagemRespostaException, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(mensagemRespostaException, HttpStatus.NO_CONTENT);
     }
 
     @ExceptionHandler(PessoaInvalidaException.class)

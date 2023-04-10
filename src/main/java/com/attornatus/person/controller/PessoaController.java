@@ -29,8 +29,8 @@ public class PessoaController {
             @ApiResponse(code = 400, message = "Nome e Data de nascimento precisam ser informados!")
     })
     @PostMapping
-    public ResponseEntity<PessoaDTO> salvar(@RequestBody Pessoa pessoa){
-        PessoaDTO pessoaSalva = pessoaService.salvar(pessoa);
+    public ResponseEntity<PessoaDTO> salvarPessoa(@RequestBody Pessoa pessoa){
+        PessoaDTO pessoaSalva = pessoaService.salvarPessoa(pessoa);
         return new ResponseEntity<PessoaDTO>(pessoaSalva, HttpStatus.CREATED);
     }
 
@@ -47,7 +47,7 @@ public class PessoaController {
     @ApiOperation(value = "Encontra pessoa pelo ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "\"id\": x\n\"nome\": nome\n\"dataNascimento\": YYYY-MM-DD\n\"enderecos\": []"),
-            @ApiResponse(code = 404, message = "Não foi encontrada a pessoa com esse ID :(")
+            @ApiResponse(code = 204, message = "Não foi encontrada a pessoa com esse ID :(")
     })
     @GetMapping("/{id}")
     public ResponseEntity<PessoaDTO> buscarPorId(@PathVariable("id") long id){
@@ -58,7 +58,7 @@ public class PessoaController {
     @ApiOperation(value = "Deleta pessoa pelo ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
-            @ApiResponse(code = 404, message = "Não foi encontrada a pessoa com esse ID :(")
+            @ApiResponse(code = 204, message = "Não foi encontrada a pessoa com esse ID :(")
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -69,7 +69,7 @@ public class PessoaController {
     @ApiOperation(value = "Atualiza pessoa pelo ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "\"id\": x\n\"nome\": nome\n\"dataNascimento\": YYYY-MM-DD\n\"enderecos\": []"),
-            @ApiResponse(code = 404, message = "Não foi encontrada a pessoa com esse ID :(")
+            @ApiResponse(code = 204, message = "Não foi encontrada a pessoa com esse ID :(")
     })
     @PutMapping
     public ResponseEntity<PessoaDTO> atualizarPessoa(@RequestBody Pessoa pessoa){

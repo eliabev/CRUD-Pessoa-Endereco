@@ -23,7 +23,7 @@ public class PessoaService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public PessoaDTO salvar(Pessoa pessoa){
+    public PessoaDTO salvarPessoa(Pessoa pessoa){
         validarPayload(pessoa);
 
         Pessoa pessoaSalva = pessoaRepository.save(pessoa);;
@@ -40,7 +40,7 @@ public class PessoaService {
         modelMapper.map(pessoaAtualizada, pessoaAtual);
 
         Pessoa entidadePessoa = modelMapper.map(pessoaAtual, Pessoa.class);
-        return salvar(entidadePessoa);
+        return salvarPessoa(entidadePessoa);
     }
 
     public List<PessoaDTO> listarPessoas(){

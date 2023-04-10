@@ -63,7 +63,7 @@ public class PessoaServiceTests {
     @DisplayName("Deve salvar uma pessoa quando os parâmetros corretos forem passados")
     public void deveSalvarUmaPessoaQuandoOsParametrosForemPassados() {
         when(pessoaRepository.save(pessoa1)).thenReturn(pessoa1);
-        PessoaDTO pessoaRetornada = pessoaService.salvar(pessoa1);
+        PessoaDTO pessoaRetornada = pessoaService.salvarPessoa(pessoa1);
         assertEquals(pessoaDto1, pessoaRetornada);
     }
 
@@ -102,7 +102,7 @@ public class PessoaServiceTests {
     public void deveSubstituirAPessoaExistenteQuandoAtualizarPessoaForChamado() {
         when(pessoaRepository.save(pessoa1)).thenReturn(pessoa1);
         when(pessoaRepository.findById(1L)).thenReturn(Optional.of(pessoa1));
-        pessoaService.salvar(pessoa1);
+        pessoaService.salvarPessoa(pessoa1);
         pessoa1.setNome("Bianca Lira");
         PessoaDTO pessoaAtualizada = pessoaService.atualizarPessoa(pessoa1);
         assertEquals("Bianca Lira", pessoaAtualizada.getNome());
