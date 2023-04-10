@@ -47,7 +47,7 @@ public class PessoaController {
     @ApiOperation(value = "Encontra pessoa pelo ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "\"id\": x\n\"nome\": nome\n\"dataNascimento\": YYYY-MM-DD\n\"enderecos\": []"),
-            @ApiResponse(code = 204, message = "Não foi encontrada a pessoa com esse ID :(")
+            @ApiResponse(code = 404, message = "Não foi encontrada a pessoa com esse ID :(")
     })
     @GetMapping("/{id}")
     public ResponseEntity<PessoaDTO> buscarPorId(@PathVariable("id") long id){
@@ -58,7 +58,7 @@ public class PessoaController {
     @ApiOperation(value = "Deleta pessoa pelo ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = ""),
-            @ApiResponse(code = 204, message = "Não foi encontrada a pessoa com esse ID :(")
+            @ApiResponse(code = 404, message = "Não foi encontrada a pessoa com esse ID :(")
     })
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
@@ -69,7 +69,7 @@ public class PessoaController {
     @ApiOperation(value = "Atualiza pessoa pelo ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "\"id\": x\n\"nome\": nome\n\"dataNascimento\": YYYY-MM-DD\n\"enderecos\": []"),
-            @ApiResponse(code = 204, message = "Não foi encontrada a pessoa com esse ID :(")
+            @ApiResponse(code = 404, message = "Não foi encontrada a pessoa com esse ID :(")
     })
     @PutMapping
     public ResponseEntity<PessoaDTO> atualizarPessoa(@RequestBody Pessoa pessoa){

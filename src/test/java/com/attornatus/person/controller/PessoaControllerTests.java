@@ -87,12 +87,12 @@ public class PessoaControllerTests {
     }
 
     @Test
-    @DisplayName("buscarPorId deve retornar status 204 quando a pessoa não for encontrada")
+    @DisplayName("buscarPorId deve retornar status 404 quando a pessoa não for encontrada")
     void buscarPorIdDeveRetornarStatus404QuandoPessoaNaoForEncontrada() throws Exception {
         when(pessoaService.buscarPorId(4L)).thenThrow(new EntidadeNaoEncontradaException("Não foi encontrada a pessoa com esse ID :("));
 
         MvcResult result = this.mockMvc.perform(get(enderecoBase + "/4"))
-                .andExpect(status().isNoContent()).andReturn();
+                .andExpect(status().isNotFound()).andReturn();
 
         assertTrue(result.getResponse().getContentAsString(StandardCharsets.UTF_8)
                 .contains("Não foi encontrada a pessoa com esse ID :("));
