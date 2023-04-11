@@ -25,7 +25,7 @@ public class EnderecoController {
     @ApiOperation(value = "Cria um novo endereco para a pessoa")
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "\"id\": x\n\"cep\": cep\n\"logradouro\": logradouro\n\"numero\": xx\n\"cidade\": cidade\n\"ehPrincipal\": t/f"),
-            @ApiResponse(code = 204, message = "Não foi encontrada a pessoa com esse ID :(")
+            @ApiResponse(code = 404, message = "Não foi encontrada a pessoa com esse ID :(")
     })
     @PostMapping
     public ResponseEntity<EnderecoDTO> salvarEndereco(@RequestBody Endereco endereco) {
@@ -36,7 +36,7 @@ public class EnderecoController {
     @ApiOperation(value = "Lista enderecos de uma pessoa")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "\"id\": x\n\"cep\": cep\n\"logradouro\": logradouro\n\"numero\": xx\n\"cidade\": cidade\n\"ehPrincipal\": t/f"),
-            @ApiResponse(code = 204, message = "Não existe nenhum endereço para esse id :(")
+            @ApiResponse(code = 404, message = "Não existe nenhum endereço para esse id :(")
     })
     @GetMapping("/{id}")
     public ResponseEntity<List<EnderecoDTO>> listarEnderecoPessoa(@PathVariable long id){
@@ -48,7 +48,7 @@ public class EnderecoController {
     @ApiOperation(value = "Encontra o endereco principal de uma pessoa")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "\"id\": x\n\"cep\": cep\n\"logradouro\": logradouro\n\"numero\": xx\n\"cidade\": cidade\n\"ehPrincipal\": t"),
-            @ApiResponse(code = 204, message = "Não existe um endereco principal para essa pessoa")
+            @ApiResponse(code = 404, message = "Não existe um endereco principal para essa pessoa")
     })
     @GetMapping("principal/{idPessoa}")
     public ResponseEntity<EnderecoDTO> encontrarEnderecoPrincipal(@PathVariable long idPessoa) {
@@ -60,7 +60,7 @@ public class EnderecoController {
     @ApiOperation(value = "Encontra o endereco principal de uma pessoa")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "\"id\": x\n\"cep\": cep\n\"logradouro\": logradouro\n\"numero\": xx\n\"cidade\": cidade\n\"ehPrincipal\": t"),
-            @ApiResponse(code = 204, message = "Não existe um endereco com esse ID :(")
+            @ApiResponse(code = 404, message = "Não existe um endereco com esse ID :(")
     })
     @PutMapping("principal/{idPessoa}/{idEndereco}")
     public ResponseEntity<EnderecoDTO> alterarEnderecoPrincipal(@PathVariable long idPessoa, @PathVariable long idEndereco) {
